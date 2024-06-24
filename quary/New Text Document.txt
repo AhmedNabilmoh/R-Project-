@@ -1,0 +1,127 @@
+1-Person and his corona state
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?person ?corona_state 
+{?person ab:hadCovidTest?corona_state.}
+
+
+
+
+2-How many cases ,active ,recovered and the dead?
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?country ?cases ?active ?recovered  ?the_dead  
+{?country ab:cases?cases.
+?country ab:active?active.
+?country ab:recovered?recovered.
+?country ab:deceased?the_dead
+
+}
+
+
+3- do persron has wife?
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?person ?Wife
+{?person ab:hasWife?Wife.
+}
+
+
+4-do persron has Daughter?
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?person ?Daughter
+{
+?person ab:hasDaughter?Daughter
+}
+
+
+5-do persron has Son?
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?person ?Son
+{
+?person ab:hasSon?Son
+}
+
+6-Person and his corona state is true
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?person 
+{?person ab:hadCovidTest "true"^^xsd:boolean }
+
+7-Person and his corona state is false
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?person 
+{?person ab:hadCovidTest "false"^^xsd:boolean }
+
+8-person his age large than 30 order by age
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?person ?age
+{?person ab:age ?age.
+ FILTER (?age >= 30).}
+ORDER BY ?age
+
+}9-object and his type
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?object ?type
+{?object rdf:type ?type}
+
+10-
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT ?directSub ?super
+ WHERE { ?directSub rdfs:subClassOf ?super .
+}
+
+11-List class hierarchy
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ab: <http://www.isibang.ac.in/ns/codo#>
+SELECT DISTINCT ?subject ?label ?supertype
+WHERE {
+    { ?subject a ab:Class . } UNION { ?individual a ?subject . } .
+    OPTIONAL { ?subject rdfs:subClassOf ?supertype } .
+    OPTIONAL { ?subject rdfs:label ?label }
+} ORDER BY ?subject

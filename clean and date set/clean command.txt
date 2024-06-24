@@ -1,0 +1,136 @@
+[
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column reported_date using expression value.toNumber()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "reported_date",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/row-removal",
+    "description": "Remove rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": [
+        {
+          "omitError": false,
+          "expression": "value",
+          "selectBlank": true,
+          "selection": [],
+          "selectError": false,
+          "invert": false,
+          "name": "population",
+          "omitBlank": false,
+          "type": "list",
+          "columnName": "population"
+        }
+      ]
+    }
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column mortality_rate using expression value.toNumber()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "mortality_rate",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/row-removal",
+    "description": "Remove rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": [
+        {
+          "selectNumeric": false,
+          "expression": "value",
+          "selectBlank": true,
+          "selectNonNumeric": true,
+          "selectError": true,
+          "name": "mortality_rate",
+          "from": 0,
+          "to": 101,
+          "type": "range",
+          "columnName": "mortality_rate"
+        }
+      ]
+    }
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column incident_rate using expression value.toNumber()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "incident_rate",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/row-reorder",
+    "description": "Reorder rows",
+    "mode": "record-based",
+    "sorting": {
+      "criteria": [
+        {
+          "errorPosition": 1,
+          "valueType": "number",
+          "column": "reported_date",
+          "blankPosition": 2,
+          "reverse": false
+        }
+      ]
+    }
+  },
+  {
+    "op": "core/blank-down",
+    "description": "Blank down cells in column reported_date",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "reported_date"
+  },
+  {
+    "op": "core/row-removal",
+    "description": "Remove rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": [
+        {
+          "omitError": false,
+          "expression": "isBlank(value)",
+          "selectBlank": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectError": false,
+          "invert": false,
+          "name": "reported_date",
+          "omitBlank": false,
+          "type": "list",
+          "columnName": "reported_date"
+        }
+      ]
+    }
+  }
+]
